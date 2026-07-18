@@ -1,0 +1,87 @@
+symptom,medicine
+fever,paracetamol
+high fever,paracetamol
+mild fever,paracetamol
+low grade fever,paracetamol
+fever with chills,paracetamol
+fever headache,paracetamol
+headache,ibuprofen
+severe headache,ibuprofen
+migraine,ibuprofen
+chronic headache,ibuprofen
+tension headache,ibuprofen
+body pain,ibuprofen
+muscle pain,diclofenac
+joint pain,diclofenac
+back pain,diclofenac
+neck pain,diclofenac
+leg pain,diclofenac
+cold,cetirizine
+common cold,cetirizine
+runny nose,cetirizine
+blocked nose,cetirizine
+sneezing,cetirizine
+allergy,cetirizine
+seasonal allergy,cetirizine
+cough,benadryl
+dry cough,benadryl
+wet cough,benadryl
+persistent cough,benadryl
+throat irritation,benadryl
+sore throat,benadryl
+itchy throat,benadryl
+stomach pain,meftal
+abdominal pain,meftal
+gastric pain,meftal
+acidity,eno
+acid reflux,eno
+indigestion,eno
+heartburn,eno
+vomiting,ondansetron
+nausea,ondansetron
+motion sickness,ondansetron
+diarrhea,loperamide
+loose motion,loperamide
+stomach infection,loperamide
+food poisoning,loperamide
+bacterial infection,amoxicillin
+infection,amoxicillin
+throat infection,amoxicillin
+skin infection,amoxicillin
+ear infection,amoxicillin
+tooth infection,amoxicillin
+fever and body pain,paracetamol
+fever and cold,paracetamol
+cold and cough,cetirizine
+headache and nausea,ibuprofen
+pain and inflammation,diclofenac
+allergy and sneezing,cetirizine
+cough and sore throat,benadryl
+stomach ache and acidity,meftal
+vomiting and nausea,ondansetron
+diarrhea and weakness,loperamide
+infection and fever,amoxicillin
+joint stiffness,diclofenac
+muscle cramps,diclofenac
+allergic reaction,cetirizine
+chest congestion,benadryl
+sinus headache,ibuprofen
+gas problem,eno
+digestive issue,eno
+upset stomach,meftal
+weakness after diarrhea,loperamide
+skin allergy,cetirizine
+dust allergy,cetirizine
+viral fever,paracetamol
+seasonal flu,paracetamol
+flu symptoms,paracetamol
+headache due to stress,ibuprofen
+pain after exercise,diclofenac
+running nose,cetirizine
+throat pain,benadryl
+gas and bloating,eno
+food intolerance,meftal
+travel sickness,ondansetron
+severe diarrhea,loperamide
+bacterial fever,amoxicillin
+Diabetes,Metformin

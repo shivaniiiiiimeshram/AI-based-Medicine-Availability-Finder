@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediFinder – My Account</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">💊</span>
+        <span class="logo-text">MediFinder</span>
+        <span class="logo-badge">My Account</span>
+      </div>
+      <nav>
+        <a href="/medifinder/" class="btn btn-outline">Search Medicines</a>
+        <button id="logoutBtn" class="btn btn-outline hidden" onclick="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="authSection">
+      <section class="hero">
+        <h1>User <span class="accent">Account</span></h1>
+        <p class="hero-sub">Login or create an account to track your reservations.</p>
+      </section>
+
+      <div class="tabs-container">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('loginTab', this)">Login</button>
+          <button class="tab" onclick="switchTab('registerTab', this)">Register</button>
+        </div>
+
+        <div id="loginTab" class="tab-panel">
+          <form id="loginForm">
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="loginEmail" placeholder="your@email.com" required />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="loginPassword" placeholder="Your password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Login</button>
+            <div id="loginMsg" class="msg"></div>
+          </form>
+        </div>
+
+        <div id="registerTab" class="tab-panel hidden">
+          <form id="registerForm">
+            <div class="field">
+              <label>Full Name / Username</label>
+              <input type="text" id="regUsername" placeholder="e.g. John Doe" required />
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="regEmail" placeholder="your@email.com" required />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="regPassword" placeholder="At least 6 characters" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            <div id="registerMsg" class="msg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="dashboardSection" class="hidden">
+      <section class="dashboard-header">
+        <div>
+          <h1>Welcome, <span id="userDisplayName" class="accent"></span>!</h1>
+          <p class="hero-sub" id="userEmailDisplay"></p>
+        </div>
+      </section>
+
+      <div class="dash-tabs-container">
+        <div class="tabs">
+          <button class="tab active" onclick="switchDashTab('myReservationsTab', this); loadMyReservations()">
+            My Reservations
+          </button>
+        </div>
+
+        <div id="myReservationsTab" class="tab-panel">
+          <div id="myReservationsList">
+            <div class="loading">Loading your reservations...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>MediFinder &copy; 2024 — Your health, simplified</p>
+  </footer>
+
+  <script src="user.js"></script>
+</body>
+</html>

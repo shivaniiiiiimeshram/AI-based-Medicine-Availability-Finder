@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediFinder – Find Medicine Near You</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">💊</span>
+        <span class="logo-text">MediFinder</span>
+      </div>
+      <nav>
+        <span id="userGreeting" class="user-greeting hidden"></span>
+        <a href="/medifinder/account" id="myAccountBtn" class="btn btn-outline">My Account</a>
+        <button id="userLogoutBtn" class="btn btn-outline hidden" onclick="userLogout()">Logout</button>
+        <a href="/medifinder/pharmacist" class="btn btn-outline">Pharmacist Portal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Find Medicine <span class="accent">Near You</span></h1>
+      <p class="hero-sub">Search thousands of pharmacies by medicine name, location, and distance.</p>
+    </section>
+
+    <section class="search-card">
+      <form id="searchForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="medicineName">Medicine Name</label>
+            <input type="text" id="medicineName" placeholder="e.g. Paracetamol, Ibuprofen..." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="location-section">
+          <div class="location-bar">
+            <button type="button" id="useLocationBtn" class="btn btn-location">
+              📍 Use My Location
+            </button>
+            <span id="locationStatus" class="location-status"></span>
+          </div>
+
+          <div id="manualRow" class="hidden manual-entry-row">
+            <div class="form-row two-cols">
+              <div class="field">
+                <label for="lat">Latitude</label>
+                <input type="number" id="lat" step="any" placeholder="e.g. 3.1390" />
+              </div>
+              <div class="field">
+                <label for="lng">Longitude</label>
+                <input type="number" id="lng" step="any" placeholder="e.g. 101.6869" />
+              </div>
+            </div>
+            <button type="button" class="btn btn-location" onclick="applyManualLocation()">
+              Apply
+            </button>
+          </div>
+
+          <div id="distanceRow" class="hidden distance-entry-row">
+            <div class="field" style="max-width:200px;">
+              <label for="distance">Max Distance (km)</label>
+              <input type="number" id="distance" value="10" min="1" max="500" />
+            </div>
+          </div>
+
+          <div class="manual-toggle-row">
+            <button type="button" class="btn-link" id="manualToggleBtn" onclick="toggleManualLocation()">
+              ✎ Enter location manually
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:1.25rem;">
+          <span id="searchBtnText">Search Medicine</span>
+        </button>
+      </form>
+
+      <div class="scan-divider"><span>or</span></div>
+
+      <div class="scan-section">
+        <p class="scan-label">📷 Scan a medicine label</p>
+        <div class="scan-row">
+          <label class="scan-file-label" for="scanImageInput">
+            <span id="scanFileText">Choose image…</span>
+            <input type="file" id="scanImageInput" accept="image/*" style="display:none" onchange="onScanFileChange(this)" />
+          </label>
+          <button type="button" id="scanBtn" class="btn btn-scan" onclick="scanImage()" disabled>
+            🔍 Scan &amp; Search
+          </button>
+        </div>
+        <div id="scanStatus" class="scan-status hidden"></div>
+      </div>
+
+      <div class="scan-divider"><span>or</span></div>
+
+      <div class="symptom-section">
+        <p class="scan-label">🤒 Search by Symptom <span class="ai-badge">AI</span></p>
+        <p class="symptom-hint">Describe what you feel and our AI will suggest the right medicine.</p>
+        <div class="scan-row">
+          <input type="text" id="symptomInput" class="symptom-input-inline"
+            placeholder="e.g. fever, headache, cough..."
+            autocomplete="off"
+            onkeydown="if(event.key==='Enter') searchBySymptom()" />
+          <button type="button" id="symptomBtn" class="btn btn-symptom" onclick="searchBySymptom()">
+            Find Medicine
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div id="resultsArea"></div>
+
+    <div id="symptomArea" class="symptom-area hidden"></div>
+
+    <div id="reservationModal" class="modal hidden">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2>Reserve Medicine</h2>
+        <div class="med-summary" id="modalMedSummary"></div>
+        <form id="reservationForm">
+          <input type="hidden" id="reserveMedId" />
+          <div class="field">
+            <label>Your Name *</label>
+            <input type="text" id="reserveName" placeholder="Full name" required />
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="text" id="reservePhone" placeholder="Optional" />
+          </div>
+          <div class="field">
+            <label>Quantity</label>
+            <input type="number" id="reserveQty" value="1" min="1" />
+          </div>
+          <div class="field">
+            <label>Notes</label>
+            <textarea id="reserveNotes" placeholder="Any special instructions..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Confirm Reservation</button>
+          <div id="reserveMsg"></div>
+        </form>
+      </div>
+    </div>
+    <div id="modalOverlay" class="modal-overlay hidden" onclick="closeModal()"></div>
+  </main>
+
+  <footer class="footer">
+    <p>MediFinder &copy; 2024 — Helping you find medicine fast</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

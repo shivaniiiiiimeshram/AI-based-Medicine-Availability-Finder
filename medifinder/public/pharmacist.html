@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediFinder – Pharmacist Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">💊</span>
+        <span class="logo-text">MediFinder</span>
+        <span class="logo-badge">Pharmacist</span>
+      </div>
+      <nav>
+        <a href="/medifinder/" class="btn btn-outline">User Search</a>
+        <button id="logoutBtn" class="btn btn-outline hidden" onclick="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="authSection">
+      <section class="hero">
+        <h1>Pharmacist <span class="accent">Portal</span></h1>
+        <p class="hero-sub">Register or login to manage your medicine inventory.</p>
+      </section>
+
+      <div class="tabs-container">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('loginTab', this)">Login</button>
+          <button class="tab" onclick="switchTab('registerTab', this)">Register</button>
+        </div>
+
+        <div id="loginTab" class="tab-panel">
+          <form id="loginForm">
+            <div class="field">
+              <label>Username</label>
+              <input type="text" id="loginUsername" placeholder="Your username" required />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="loginPassword" placeholder="Your password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Login</button>
+            <div id="loginMsg" class="msg"></div>
+          </form>
+        </div>
+
+        <div id="registerTab" class="tab-panel hidden">
+          <form id="registerForm">
+            <div class="form-row two-cols">
+              <div class="field">
+                <label>Username *</label>
+                <input type="text" id="regUsername" placeholder="Choose a username" required />
+              </div>
+              <div class="field">
+                <label>Password *</label>
+                <input type="password" id="regPassword" placeholder="Choose a password" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Pharmacy Name *</label>
+              <input type="text" id="regPharmacy" placeholder="e.g. Sunrise Pharmacy" required />
+            </div>
+            <div class="field">
+              <label>Pharmacy Address</label>
+              <input type="text" id="regAddress" placeholder="e.g. 123 Main St, Kuala Lumpur" />
+            </div>
+            <div class="field">
+              <label>Location *</label>
+              <button type="button" class="btn btn-outline btn-locate" id="regLocateBtn" onclick="fetchCurrentLocation('regLat','regLng','regLocateBtn','regLocateStatus')">
+                📍 Use My Current Location
+              </button>
+              <span id="regLocateStatus" class="locate-status"></span>
+            </div>
+            <div class="form-row two-cols">
+              <div class="field">
+                <label>Latitude *</label>
+                <input type="number" id="regLat" step="any" placeholder="e.g. 3.1390" required />
+              </div>
+              <div class="field">
+                <label>Longitude *</label>
+                <input type="number" id="regLng" step="any" placeholder="e.g. 101.6869" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Contact Number <span class="field-optional">(optional)</span></label>
+              <input type="text" id="regContact" placeholder="e.g. +60123456789" />
+            </div>
+            <p class="field-hint">📍 Latitude &amp; longitude are used for distance-based search. You can find your coordinates on Google Maps.</p>
+            <button type="submit" class="btn btn-primary btn-full">Register</button>
+            <div id="registerMsg" class="msg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="dashboardSection" class="hidden">
+      <section class="dashboard-header">
+        <div>
+          <h1>Welcome, <span id="pharmacyTitle" class="accent"></span></h1>
+          <p class="hero-sub">Manage your medicines and view reservations.</p>
+        </div>
+      </section>
+
+      <div class="dash-tabs-container">
+        <div class="tabs">
+          <button class="tab active" onclick="switchDashTab('addMedTab', this)">Add Medicine</button>
+          <button class="tab" onclick="switchDashTab('myMedsTab', this); loadMyMeds()">My Medicines</button>
+          <button class="tab" onclick="switchDashTab('reservationsTab', this); loadReservations()">Reservations</button>
+          <button class="tab" onclick="switchDashTab('profileTab', this); loadProfile()">My Profile</button>
+        </div>
+
+        <div id="addMedTab" class="tab-panel">
+          <form id="addMedForm" class="add-med-form">
+            <div class="form-row two-cols">
+              <div class="field">
+                <label>Medicine Name *</label>
+                <input type="text" id="medName" placeholder="e.g. Paracetamol 500mg" required />
+              </div>
+              <div class="field">
+                <label>Category *</label>
+                <input type="text" id="medCategory" placeholder="e.g. fever, pain relief, antibiotic" required />
+              </div>
+            </div>
+            <div class="form-row two-cols">
+              <div class="field">
+                <label>Price (per unit) *</label>
+                <input type="number" id="medPrice" step="0.01" min="0" placeholder="0.00" required />
+              </div>
+              <div class="field">
+                <label>Stock (units) *</label>
+                <input type="number" id="medStock" min="0" placeholder="0" required />
+              </div>
+            </div>
+            <p class="field-hint">📍 Your pharmacy's registered location will automatically be used for distance-based search.</p>
+            <button type="submit" class="btn btn-primary btn-full">Add Medicine</button>
+            <div id="addMedMsg" class="msg"></div>
+          </form>
+        </div>
+
+        <div id="myMedsTab" class="tab-panel hidden">
+          <div id="myMedsList"></div>
+        </div>
+
+        <div id="reservationsTab" class="tab-panel hidden">
+          <div id="reservationsList"></div>
+        </div>
+
+        <div id="profileTab" class="tab-panel hidden">
+          <div id="profileContent"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>MediFinder &copy; 2024 — Pharmacist Portal</p>
+  </footer>
+
+  <script src="pharmacist.js"></script>
+</body>
+</html>
